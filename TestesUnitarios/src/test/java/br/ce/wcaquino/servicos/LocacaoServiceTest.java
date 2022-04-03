@@ -1,8 +1,16 @@
 package br.ce.wcaquino.servicos;
 
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static br.ce.wcaquino.utils.DataUtils.isMesmaData;
+
 import java.util.Date;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,9 +38,10 @@ public class LocacaoServiceTest {
 		
 		// 3 - Verificação
 		
-		Assert.assertEquals(15.90, locacao.getValor(), 0.01);
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+		assertThat(locacao.getValor(), is(equalTo(15.90)));
+		assertThat(locacao.getValor(), is(not(5.90)));
+		assertThat(isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		assertThat(isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 		
 	}
 }
